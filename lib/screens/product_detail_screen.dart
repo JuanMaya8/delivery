@@ -52,7 +52,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           child: Image.network(
             widget.food.imageUrl,
             fit: BoxFit.contain,
-            errorBuilder: (_, __, ___) => Container(
+            errorBuilder: (_, error, stackTrace) => Container(
               width: 180,
               height: 180,
               decoration: BoxDecoration(
@@ -157,7 +157,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         activeTrackColor: AppColors.primary,
                         inactiveTrackColor: AppColors.cardBorder,
                         thumbColor: AppColors.primary,
-                        overlayColor: AppColors.primary.withOpacity(0.12),
+                        overlayColor: AppColors.primary.withValues(alpha: 0.12),
                       ),
                       child: Slider(
                         value: _spiciness,
@@ -247,7 +247,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 16,
             offset: const Offset(0, -4),
           ),
@@ -325,7 +325,7 @@ class _CircleButton extends StatelessWidget {
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.06),
+              color: Colors.black.withValues(alpha: 0.06),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),

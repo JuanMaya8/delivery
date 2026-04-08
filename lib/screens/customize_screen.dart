@@ -130,7 +130,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
               activeTrackColor: AppColors.primary,
               inactiveTrackColor: AppColors.cardBorder,
               thumbColor: AppColors.primary,
-              overlayColor: AppColors.primary.withOpacity(0.2),
+              overlayColor: AppColors.primary.withValues(alpha: 0.2),
             ),
             child: Slider(
               value: _spiciness,
@@ -240,7 +240,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+              color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 12,
             offset: const Offset(0, -4),
           ),
@@ -321,7 +321,7 @@ class _CircleBtn extends StatelessWidget {
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 8,
             ),
           ],
@@ -462,7 +462,8 @@ class _SideCard extends StatelessWidget {
                 width: 14,
                 height: 14,
                 decoration: BoxDecoration(
-                  color: side.selected ? AppColors.primary : AppColors.cardBorder,
+                  color:
+                      side.selected ? AppColors.primary : AppColors.cardBorder,
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(Icons.add, size: 10, color: Colors.white),

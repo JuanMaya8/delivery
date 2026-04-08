@@ -68,9 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Text(
           'Foodgo',
-          style: GoogleFonts.poppins(
-            fontSize: 26,
-            fontWeight: FontWeight.w700,
+          style: GoogleFonts.greatVibes(
+            fontSize: 30,
+            fontWeight: FontWeight.w600,
             color: AppColors.textDark,
           ),
         ),
@@ -298,7 +298,7 @@ class _FoodCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.06),
+              color: Colors.black.withValues(alpha: 0.06),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),

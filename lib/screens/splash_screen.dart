@@ -101,7 +101,8 @@ class _BurgerBottomImage extends StatelessWidget {
                 width: 220,
                 height: 175,
                 fit: BoxFit.contain,
-                errorBuilder: (_, _, _) => const _BurgerFallback(width: 220),
+                errorBuilder: (_, error, stackTrace) =>
+                    const _BurgerFallback(width: 220),
               ),
             ),
           ),
@@ -113,7 +114,8 @@ class _BurgerBottomImage extends StatelessWidget {
               width: 172,
               height: 138,
               fit: BoxFit.contain,
-              errorBuilder: (_, _, _) => const _BurgerFallback(width: 172),
+              errorBuilder: (_, error, stackTrace) =>
+                  const _BurgerFallback(width: 172),
             ),
           ),
         ],
@@ -133,7 +135,7 @@ class _BurgerFallback extends StatelessWidget {
       width: width,
       height: width * 0.72,
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.14),
+        color: Colors.white.withValues(alpha: 0.14),
         borderRadius: BorderRadius.circular(32),
       ),
       child: const Icon(
@@ -159,7 +161,9 @@ class _LoadingDots extends StatelessWidget {
           height: 8,
           margin: const EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
-            color: index == 1 ? Colors.white : Colors.white.withOpacity(0.55),
+            color: index == 1
+                ? Colors.white
+                : Colors.white.withValues(alpha: 0.55),
             shape: BoxShape.circle,
           ),
         ),

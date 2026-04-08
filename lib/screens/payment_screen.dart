@@ -175,7 +175,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         width: 22,
                         height: 22,
                         decoration: BoxDecoration(
-                          color: const Color(0xFFF79E1B).withOpacity(0.9),
+                          color: const Color(0xFFF79E1B).withValues(alpha: 0.9),
                           shape: BoxShape.circle,
                         ),
                       ),
@@ -312,7 +312,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 12,
             offset: const Offset(0, -4),
           ),
@@ -437,7 +437,7 @@ class _PaymentMethodCard extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
