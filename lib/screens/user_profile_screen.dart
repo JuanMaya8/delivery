@@ -103,7 +103,7 @@ class UserProfileScreen extends StatelessWidget {
                     child: Image.network(
                       'https://images.unsplash.com/photo-1494790108755-2616b612b494?w=200',
                       fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => Container(
+                      errorBuilder: (_, _, _) => Container(
                         color: AppColors.bgGrey,
                         child: const Icon(Icons.person, size: 40, color: AppColors.textGrey),
                       ),

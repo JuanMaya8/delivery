@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: _categories.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 10),
+        separatorBuilder: (_, _) => const SizedBox(width: 10),
         itemBuilder: (context, index) {
           final cat = _categories[index];
           final isSelected = cat == _selectedCategory;
@@ -315,7 +315,7 @@ class _FoodCard extends StatelessWidget {
                 height: 130,
                 width: double.infinity,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(
+                errorBuilder: (_, _, _) => Container(
                   height: 130,
                   color: AppColors.bgGrey,
                   child: const Icon(Icons.fastfood, size: 48, color: AppColors.textLight),

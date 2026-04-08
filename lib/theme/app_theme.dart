@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
-  static const Color primary = Color(0xFFE8192C);
-  static const Color primaryLight = Color(0xFFFF4D5E);
+  static const Color primary = Color(0xFFFF2B3A);
+  static const Color primaryLight = Color(0xFFFF7C88);
   static const Color background = Color(0xFFFFFFFF);
-  static const Color bgGrey = Color(0xFFF5F5F5);
-  static const Color darkCard = Color(0xFF2D2D2D);
-  static const Color textDark = Color(0xFF1A1A1A);
-  static const Color textGrey = Color(0xFF888888);
-  static const Color textLight = Color(0xFFBBBBBB);
-  static const Color rating = Color(0xFFFFA500);
-  static const Color cardBorder = Color(0xFFEEEEEE);
-  static const Color chatBubbleAgent = Color(0xFFF0F0F0);
+  static const Color bgGrey = Color(0xFFF7F7F7);
+  static const Color darkCard = Color(0xFF3C2C2D);
+  static const Color textDark = Color(0xFF302B2B);
+  static const Color textGrey = Color(0xFF8F8A8A);
+  static const Color textLight = Color(0xFFC9C4C4);
+  static const Color rating = Color(0xFFFF9A1F);
+  static const Color cardBorder = Color(0xFFF0ECEC);
+  static const Color chatBubbleAgent = Color(0xFFF3F1F4);
+  static const Color success = Color(0xFF28C76F);
 
   static const LinearGradient splashGradient = LinearGradient(
-    colors: [Color(0xFFFF6B6B), Color(0xFFD10E20)],
+    colors: [Color(0xFFFF7E8A), Color(0xFFFF2B3A)],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
@@ -85,6 +86,7 @@ class AppTheme {
         scaffoldBackgroundColor: AppColors.background,
         primaryColor: AppColors.primary,
         fontFamily: GoogleFonts.poppins().fontFamily,
+        useMaterial3: false,
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
           elevation: 0,
@@ -93,5 +95,7 @@ class AppTheme {
         colorScheme: const ColorScheme.light(
           primary: AppColors.primary,
         ),
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
       );
 }

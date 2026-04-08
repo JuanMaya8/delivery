@@ -21,7 +21,7 @@ class _CustomerSupportScreenState extends State<CustomerSupportScreen> {
   final TextEditingController _textController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
-  List<ChatMessage> _messages = [
+  final List<ChatMessage> _messages = [
     const ChatMessage(text: 'Hi, how can I help you?', isUser: false),
     const ChatMessage(
       text: 'Hello, I ordered two fried chicken burgers. can I know how much time it will get to arrive?',
@@ -146,7 +146,7 @@ class _CustomerSupportScreenState extends State<CustomerSupportScreen> {
                 width: 36,
                 height: 36,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(
+                errorBuilder: (_, _, _) => Container(
                   width: 36,
                   height: 36,
                   color: AppColors.primary,

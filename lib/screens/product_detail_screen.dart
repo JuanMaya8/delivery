@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../theme/app_theme.dart';
+
 import '../models/food_models.dart';
+import '../theme/app_theme.dart';
 import 'customize_screen.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -43,35 +44,42 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Widget _buildHeroImage(BuildContext context) {
     return Stack(
       children: [
-        // Food image
         Container(
-          height: 280,
+          height: 300,
           width: double.infinity,
           color: Colors.white,
+          alignment: Alignment.center,
           child: Image.network(
             widget.food.imageUrl,
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
             errorBuilder: (_, __, ___) => Container(
-              color: AppColors.bgGrey,
-              child: const Icon(Icons.fastfood, size: 80, color: AppColors.textLight),
+              width: 180,
+              height: 180,
+              decoration: BoxDecoration(
+                color: AppColors.bgGrey,
+                borderRadius: BorderRadius.circular(28),
+              ),
+              child: const Icon(
+                Icons.fastfood_rounded,
+                size: 86,
+                color: AppColors.textLight,
+              ),
             ),
           ),
         ),
-        // Back button
         Positioned(
-          top: MediaQuery.of(context).padding.top + 8,
+          top: MediaQuery.of(context).padding.top + 10,
           left: 16,
           child: _CircleButton(
             icon: Icons.arrow_back_ios_new_rounded,
             onTap: () => Navigator.pop(context),
           ),
         ),
-        // Search button
         Positioned(
-          top: MediaQuery.of(context).padding.top + 8,
+          top: MediaQuery.of(context).padding.top + 10,
           right: 16,
           child: _CircleButton(
-            icon: Icons.search,
+            icon: Icons.search_rounded,
             onTap: () {},
           ),
         ),
@@ -81,27 +89,19 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   Widget _buildContent() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+      padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Title row
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  '${widget.food.name} ${widget.food.restaurant}',
-                  style: GoogleFonts.poppins(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.textDark,
-                  ),
-                ),
-              ),
-            ],
+          Text(
+            '${widget.food.name} ${widget.food.restaurant}',
+            style: GoogleFonts.poppins(
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+              color: AppColors.textDark,
+            ),
           ),
-          const SizedBox(height: 8),
-          // Rating & time
+          const SizedBox(height: 6),
           Row(
             children: [
               const Icon(Icons.star_rounded, color: AppColors.rating, size: 16),
@@ -109,37 +109,34 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               Text(
                 '${widget.food.rating}',
                 style: GoogleFonts.poppins(
-                  fontSize: 13,
+                  fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  color: AppColors.textDark,
+                  color: AppColors.textGrey,
                 ),
               ),
               const SizedBox(width: 6),
               Text(
-                '— ${widget.food.deliveryTime} mins',
+                '- ${widget.food.deliveryTime} mins',
                 style: GoogleFonts.poppins(
-                  fontSize: 12,
+                  fontSize: 11,
                   color: AppColors.textGrey,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 14),
-          // Description
+          const SizedBox(height: 12),
           Text(
             widget.food.description,
             style: GoogleFonts.poppins(
-              fontSize: 13,
+              fontSize: 12.5,
               color: AppColors.textGrey,
-              height: 1.6,
+              height: 1.7,
             ),
           ),
           const SizedBox(height: 24),
-          // Spicy & Portion row
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              // Spicy slider
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -147,47 +144,56 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     Text(
                       'Spicy',
                       style: GoogleFonts.poppins(
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: FontWeight.w600,
                         color: AppColors.textDark,
                       ),
                     ),
-                    const SizedBox(height: 8),
                     SliderTheme(
                       data: SliderThemeData(
                         trackHeight: 4,
-                        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
+                        thumbShape:
+                            const RoundSliderThumbShape(enabledThumbRadius: 7),
                         activeTrackColor: AppColors.primary,
                         inactiveTrackColor: AppColors.cardBorder,
                         thumbColor: AppColors.primary,
-                        overlayColor: AppColors.primary.withOpacity(0.2),
+                        overlayColor: AppColors.primary.withOpacity(0.12),
                       ),
                       child: Slider(
                         value: _spiciness,
-                        onChanged: (val) => setState(() => _spiciness = val),
-                        min: 0,
-                        max: 1,
+                        onChanged: (value) => setState(() => _spiciness = value),
                       ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Mild', style: GoogleFonts.poppins(fontSize: 11, color: AppColors.primary)),
-                        Text('Hot', style: GoogleFonts.poppins(fontSize: 11, color: AppColors.textGrey)),
+                        Text(
+                          'Mild',
+                          style: GoogleFonts.poppins(
+                            fontSize: 10,
+                            color: const Color(0xFF41C352),
+                          ),
+                        ),
+                        Text(
+                          'Hot',
+                          style: GoogleFonts.poppins(
+                            fontSize: 10,
+                            color: AppColors.primary,
+                          ),
+                        ),
                       ],
                     ),
                   ],
                 ),
               ),
               const SizedBox(width: 24),
-              // Portion counter
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Portion',
                     style: GoogleFonts.poppins(
-                      fontSize: 14,
+                      fontSize: 13,
                       fontWeight: FontWeight.w600,
                       color: AppColors.textDark,
                     ),
@@ -214,8 +220,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                       _PortionButton(
                         icon: Icons.add,
-                        onTap: () => setState(() => _portion++),
                         isPrimary: true,
+                        onTap: () => setState(() => _portion++),
                       ),
                     ],
                   ),
@@ -223,7 +229,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 34),
         ],
       ),
     );
@@ -232,25 +238,28 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Widget _buildBottomBar(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(
-          20, 16, 20, MediaQuery.of(context).padding.bottom + 16),
+        20,
+        16,
+        20,
+        MediaQuery.of(context).padding.bottom + 16,
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.06),
-            blurRadius: 12,
+            blurRadius: 16,
             offset: const Offset(0, -4),
           ),
         ],
       ),
       child: Row(
         children: [
-          // Price button
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
             decoration: BoxDecoration(
               color: AppColors.primary,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(14),
             ),
             child: Text(
               '\$${widget.food.price.toStringAsFixed(2)}',
@@ -262,7 +271,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
           ),
           const SizedBox(width: 12),
-          // Order Now button
           Expanded(
             child: GestureDetector(
               onTap: () => Navigator.push(
@@ -278,16 +286,16 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 decoration: BoxDecoration(
                   color: AppColors.darkCard,
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(14),
                 ),
                 alignment: Alignment.center,
                 child: Text(
                   'ORDER NOW',
                   style: GoogleFonts.poppins(
-                    fontSize: 14,
+                    fontSize: 13,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
-                    letterSpacing: 1,
+                    letterSpacing: 0.8,
                   ),
                 ),
               ),
@@ -310,20 +318,20 @@ class _CircleButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 38,
-        height: 38,
+        width: 34,
+        height: 34,
         decoration: BoxDecoration(
           color: Colors.white,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 8,
+              color: Colors.black.withOpacity(0.06),
+              blurRadius: 10,
               offset: const Offset(0, 2),
             ),
           ],
         ),
-        child: Icon(icon, size: 18, color: AppColors.textDark),
+        child: Icon(icon, size: 16, color: AppColors.textDark),
       ),
     );
   }
@@ -345,14 +353,12 @@ class _PortionButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 32,
-        height: 32,
+        width: 30,
+        height: 30,
         decoration: BoxDecoration(
           color: isPrimary ? AppColors.primary : Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          border: isPrimary
-              ? null
-              : Border.all(color: AppColors.cardBorder),
+          borderRadius: BorderRadius.circular(9),
+          border: isPrimary ? null : Border.all(color: AppColors.cardBorder),
         ),
         child: Icon(
           icon,

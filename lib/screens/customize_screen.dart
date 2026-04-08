@@ -72,7 +72,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
           child: Image.network(
             widget.food.imageUrl,
             fit: BoxFit.contain,
-            errorBuilder: (_, __, ___) => Container(
+            errorBuilder: (_, _, _) => Container(
               color: AppColors.bgGrey,
               child: const Icon(Icons.fastfood, size: 80, color: AppColors.textLight),
             ),
@@ -185,7 +185,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: _toppings.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 12),
+              separatorBuilder: (_, _) => const SizedBox(width: 12),
               itemBuilder: (context, index) {
                 final topping = _toppings[index];
                 return _ToppingCard(
@@ -205,7 +205,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: _sides.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 12),
+              separatorBuilder: (_, _) => const SizedBox(width: 12),
               itemBuilder: (context, index) {
                 final side = _sides[index];
                 return _SideCard(
@@ -388,7 +388,7 @@ class _ToppingCard extends StatelessWidget {
               child: Image.network(
                 topping.imageUrl,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) =>
+                errorBuilder: (_, _, _) =>
                     const Icon(Icons.eco, color: AppColors.textGrey),
               ),
             ),
@@ -445,7 +445,7 @@ class _SideCard extends StatelessWidget {
               child: Image.network(
                 side.imageUrl,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) =>
+                errorBuilder: (_, _, _) =>
                     const Icon(Icons.restaurant, color: AppColors.textGrey),
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../theme/app_theme.dart';
 import 'home_screen.dart';
 
@@ -12,9 +13,9 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _fadeAnim;
-  late Animation<double> _scaleAnim;
+  late final AnimationController _controller;
+  late final Animation<double> _fadeAnim;
+  late final Animation<double> _scaleAnim;
 
   @override
   void initState() {
@@ -24,17 +25,16 @@ class _SplashScreenState extends State<SplashScreen>
       duration: const Duration(milliseconds: 1200),
     );
     _fadeAnim = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
-    _scaleAnim = Tween<double>(begin: 0.85, end: 1.0).animate(
+    _scaleAnim = Tween<double>(begin: 0.86, end: 1).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
     );
     _controller.forward();
 
     Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
-        );
-      }
+      if (!mounted) return;
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const HomeScreen()),
+      );
     });
   }
 
@@ -50,9 +50,7 @@ class _SplashScreenState extends State<SplashScreen>
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: AppColors.splashGradient,
-        ),
+        decoration: const BoxDecoration(gradient: AppColors.splashGradient),
         child: SafeArea(
           child: FadeTransition(
             opacity: _fadeAnim,
@@ -60,22 +58,18 @@ class _SplashScreenState extends State<SplashScreen>
               scale: _scaleAnim,
               child: Column(
                 children: [
-                  const Spacer(flex: 2),
-                  // Logo
+                  const Spacer(flex: 3),
                   Text(
                     'Foodgo',
                     style: GoogleFonts.greatVibes(
-                      fontSize: 56,
+                      fontSize: 54,
                       color: Colors.white,
-                      fontWeight: FontWeight.w400,
                     ),
                   ),
-                  const Spacer(flex: 3),
-                  // Loading indicator
-                  _LoadingDots(),
-                  const SizedBox(height: 32),
-                  // Burger image at bottom
-                  _BurgerBottomImage(),
+                  const Spacer(flex: 5),
+                  const _LoadingDots(),
+                  const SizedBox(height: 26),
+                  const _BurgerBottomImage(),
                 ],
               ),
             ),
@@ -86,103 +80,89 @@ class _SplashScreenState extends State<SplashScreen>
   }
 }
 
-class _LoadingDots extends StatefulWidget {
-  @override
-  State<_LoadingDots> createState() => _LoadingDotsState();
-}
-
-class _LoadingDotsState extends State<_LoadingDots>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _ctrl;
-  late Animation<double> _anim;
-
-  @override
-  void initState() {
-    super.initState();
-    _ctrl = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    )..repeat();
-    _anim = CurvedAnimation(parent: _ctrl, curve: Curves.easeInOut);
-  }
-
-  @override
-  void dispose() {
-    _ctrl.dispose();
-    super.dispose();
-  }
+class _BurgerBottomImage extends StatelessWidget {
+  const _BurgerBottomImage();
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _anim,
-      builder: (context, child) {
-        return Container(
-          width: 44,
-          height: 44,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.white.withOpacity(0.6), width: 2),
-          ),
-          child: Center(
-            child: Container(
-              width: 18,
-              height: 18,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
+    return SizedBox(
+      height: 230,
+      width: double.infinity,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Positioned(
+            left: -18,
+            bottom: -8,
+            child: Transform.rotate(
+              angle: -0.07,
+              child: Image.network(
+                'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600',
+                width: 220,
+                height: 175,
+                fit: BoxFit.contain,
+                errorBuilder: (_, _, _) => const _BurgerFallback(width: 220),
               ),
             ),
           ),
-        );
-      },
+          Positioned(
+            left: 106,
+            bottom: -4,
+            child: Image.network(
+              'https://images.unsplash.com/photo-1550547660-d9450f859349?w=600',
+              width: 172,
+              height: 138,
+              fit: BoxFit.contain,
+              errorBuilder: (_, _, _) => const _BurgerFallback(width: 172),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
-class _BurgerBottomImage extends StatelessWidget {
+class _BurgerFallback extends StatelessWidget {
+  final double width;
+
+  const _BurgerFallback({required this.width});
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 220,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          // Shadow glow
-          Positioned(
-            bottom: 0,
-            child: Container(
-              width: 260,
-              height: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    blurRadius: 30,
-                    spreadRadius: 10,
-                  ),
-                ],
-              ),
-            ),
+    return Container(
+      width: width,
+      height: width * 0.72,
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.14),
+        borderRadius: BorderRadius.circular(32),
+      ),
+      child: const Icon(
+        Icons.fastfood_rounded,
+        size: 70,
+        color: Colors.white70,
+      ),
+    );
+  }
+}
+
+class _LoadingDots extends StatelessWidget {
+  const _LoadingDots();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(
+        3,
+        (index) => Container(
+          width: 8,
+          height: 8,
+          margin: const EdgeInsets.symmetric(horizontal: 4),
+          decoration: BoxDecoration(
+            color: index == 1 ? Colors.white : Colors.white.withOpacity(0.55),
+            shape: BoxShape.circle,
           ),
-          // Burger image
-          Image.network(
-            'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600',
-            width: 300,
-            height: 200,
-            fit: BoxFit.contain,
-            errorBuilder: (_, __, ___) => Container(
-              width: 300,
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: const Icon(Icons.fastfood, size: 80, color: Colors.white54),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
